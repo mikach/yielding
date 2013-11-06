@@ -1,0 +1,32 @@
+{
+  "name": "yielding",
+  "version": "0.1.0",
+  "description": "Easy generators",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --harmony --reporter=spec test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikach/yielding"
+  },
+  "keywords": [
+    "yields",
+    "generators",
+    "promises"
+  ],
+  "author": {
+    "name": "Michael",
+    "email": "mikach27@gmail.com",
+    "url": "https://github.com/mikach"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikach/yielding/issues"
+  },
+  "homepage": "https://github.com/mikach/yielding",
+  "devDependencies": {
+    "q": "~0.9.7",
+    "chai": "~1.8.1"
+  }
+}
