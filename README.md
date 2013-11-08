@@ -17,6 +17,7 @@ var b = Y(function* () {
     return a + b;
 });
 
+console.log( b.once() ); // 1
 console.log( b() ); // 3
 ```
 Async code:
