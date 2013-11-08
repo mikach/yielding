@@ -55,7 +55,10 @@ describe('Y function', function() {
     });
 
     it('once()', function() {
-
+        var b = Y(gen);
+        expect( b.once() ).to.be.equal( 1 );
+        expect( b.once() ).to.be.equal( 2 );
+        expect( b() ).to.be.equal( 10 );
     });
 });
 
