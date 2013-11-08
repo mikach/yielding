@@ -8,7 +8,7 @@ Use Node version 0.11.x with `--harmony-generators` flag to work with es6 genera
 npm install yielding
 ```
 ### Examples
-```
+```js
 var Y = require('yielding');
 
 var b = Y(function* () {
@@ -21,7 +21,7 @@ console.log( b.once() ); // 1
 console.log( b() ); // 3
 ```
 Async code:
-```
+```js
 var read = Y.nwrap(fs.readFile);
 
 function* getContent(filename) {
@@ -32,7 +32,7 @@ function* getContent(filename) {
 Y(getContent)('./examples/Y.js');
 ```
 Working with promises:
-```
+```js
 var q = require('q');
 
 var asyncFn = function(str) {
@@ -49,13 +49,13 @@ Y(function* () {
 })();
 ```
 Creating promises from node functions:
-```
+```js
 Y.ncall(fs.readFile, './examples/Y.js', 'utf-8').then(function(content) {
     console.log(content.length);
 });
 ```
 Wrap node functions for later use:
-```
+```js
 var read = Y.nwrap(fs.readFile);
 
 function* getContent(filename) {
