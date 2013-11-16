@@ -11,14 +11,14 @@ npm install yielding
 ```js
 var Y = require('yielding');
 
-var b = Y(function* () {
+var c = Y(function* () {
     var a = yield 1;
     var b = yield 2;
     return a + b;
 });
 
-console.log( b.once() ); // 1
-console.log( b() ); // 3
+console.log( c.once() ); // 1
+console.log( c() ); // 3
 ```
 ### Async code:
 ```js
