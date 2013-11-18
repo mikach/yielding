@@ -20,6 +20,16 @@ var c = Y(function* () {
 console.log( c.once() ); // 1
 console.log( c() ); // 3
 ```
+### Y.toArray()
+```js
+var odd = Y(function* (limit) {
+    for (var i = 0; i < limit; i++) {
+        if (i % 2) yield i;
+    }
+});
+
+console.log( odd.toArray(10) ); // 1,3,5,7,9
+```
 ### Async code:
 ```js
 var read = Y.nwrap(fs.readFile);
