@@ -88,3 +88,19 @@ describe('nodejs functions wrappers', function() {
         });
     });
 });
+
+describe('errors handling', function() {
+    it('should handle errors in promises', function(done) {
+        var b = Y(function* () {
+            var ex;
+            try {
+                var content = yield Q.nfcall(fs.readFile, 'non_exists_file');
+            } catch(e) {
+                ex = e;
+            }
+            expect(ex instanceof Error).to.be.ok;
+            expect(ex.message).to.be.a('string');
+            done();
+        })();
+    });
+});
