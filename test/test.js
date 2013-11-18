@@ -60,6 +60,18 @@ describe('Y function', function() {
         expect( b.once() ).to.be.equal( 2 );
         expect( b() ).to.be.equal( 10 );
     });
+
+    it('toArray() Sync', function() {
+        var b = Y(function* (limit) {
+            for (var i = 0; i < limit; i++) {
+                if (i % 3 === 0) yield i;
+            }
+        });
+        expect( b.toArray(10) ).to.have.length(4);
+        expect( b.toArray(16) ).to.have.length(6);
+        expect( b.toArray(20).toString() ).to.be.equal( [0, 3, 6, 9, 12, 15, 18].toString() );
+        expect( b.toArray(4)[1] ).to.be.equal(3);
+    });
 });
 
 describe('nodejs functions wrappers', function() {
