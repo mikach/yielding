@@ -22,6 +22,12 @@ describe('detect promises and generators', function() {
         expect( Y.isPromise() ).to.be.false;
     });
 
+    it('isPromiseArray', function() {
+        expect( Y.isPromiseArray([1,2,3]) ).to.be.false;
+        expect( Y.isPromiseArray('test') ).to.be.false;
+        expect( Y.isPromiseArray([1,2,q.defer().promise]) ).to.be.true;
+    });
+
     it('isGenerator', function() {
         expect( Y.isGenerator(gen) ).to.be.false;
         expect( Y.isGenerator(gen()) ).to.be.true;
@@ -94,7 +100,7 @@ describe('errors handling', function() {
         var b = Y(function* () {
             var ex;
             try {
-                var content = yield Q.nfcall(fs.readFile, 'non_exists_file');
+                var content = yield Q.nfcall(fs.readFile, 'non_exists_file', 'utf-8');
             } catch(e) {
                 ex = e;
             }
