@@ -30,7 +30,19 @@ var odd = Y(function* (limit) {
 
 console.log( odd.toArray(10) ); // 1,3,5,7,9
 ```
-### Async code:
+### Parallel execution
+```js
+var get = Y.nwrap( require('request').get );
+
+Y(function* () {
+    var pages = ['http://google.com', 'http://yahoo.com', 'http://bind.com'];
+    var content = yield pages.map(function(url) {
+        return get(url);
+    });
+    console.log(content.map(function(c) { return c.body.length; }));
+})();
+```
+### Async code with wrapper for node functions
 ```js
 var read = Y.nwrap(fs.readFile);
 
@@ -63,17 +75,6 @@ Y(function* () {
 Y.ncall(fs.readFile, './examples/Y.js', 'utf-8').then(function(content) {
     console.log(content.length);
 });
-```
-### Wrap node functions
-```js
-var read = Y.nwrap(fs.readFile);
-
-function* getContent(filename) {
-    var content = yield read(filename, 'utf-8');
-    console.log(content.length);
-};
-
-Y(getContent)('./examples/Y.js');
 ```
 ###Error handling
 ```js
