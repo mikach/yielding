@@ -87,3 +87,4 @@ Y(function* () {
     console.log('done');
 })();
 ```
+[See more examples](https://github.com/mikach/yielding/tree/master/examples)
