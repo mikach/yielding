@@ -28,6 +28,7 @@
   "homepage": "https://github.com/mikach/yielding",
   "devDependencies": {
     "q": "~0.9.7",
-    "chai": "~1.8.1"
+    "chai": "~1.8.1",
+    "request": "~2.27.0"
   }
 }
