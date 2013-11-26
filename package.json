@@ -1,8 +1,8 @@
 {
   "name": "yielding",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Easy generators",
-  "main": "index.js",
+  "main": "./lib/yielding.js",
   "scripts": {
     "test": "mocha --harmony --reporter=spec test/test.js"
   },
@@ -27,6 +27,7 @@
   "homepage": "https://github.com/mikach/yielding",
   "devDependencies": {
     "q": "~0.9.7",
-    "chai": "~1.8.1"
+    "chai": "~1.8.1",
+    "mocha": "*"
   }
 }
