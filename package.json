@@ -13,8 +13,12 @@
   },
   "keywords": [
     "yields",
+    "yield",
     "generators",
-    "promises"
+    "promises",
+    "es6",
+    "async",
+    "callbacks"
   ],
   "author": {
     "name": "Michael",
