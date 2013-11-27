@@ -102,7 +102,7 @@ describe('nodejs functions wrappers', function () {
 
         it('read a file with params', function (done) {
             readWithParams().then(function (content) {
-                expect('content').to.be.a('string');
+                expect(content).to.be.a('string');
                 done();
             });
         });
