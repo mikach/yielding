@@ -82,12 +82,21 @@ describe('Y function', function() {
 
 describe('nodejs functions wrappers', function() {
     describe('nwrap()', function() {
+        var filename = 'test/example.txt';
         var read = Y.nwrap(fs.readFile);
+        var readWithParams = Y.nwrap(fs.readFile, filename, 'utf-8');
         it('return promise', function() {
             expect( Y.isPromise(read()) ).to.be.true;
+            expect( Y.isPromise(readWithParams()) ).to.be.true;
         });
         it('read a file', function(done) {
-            read('test/example.txt', 'utf-8').then(function(content) {
+            read(filename, 'utf-8').then(function(content) {
+                expect('content').to.be.a('string');
+                done();
+            });
+        });
+        it('read a file with params', function(done) {
+            readWithParams().then(function(content) {
                 expect('content').to.be.a('string');
                 done();
             });
