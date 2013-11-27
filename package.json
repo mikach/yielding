@@ -1,6 +1,6 @@
 {
   "name": "yielding",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "description": "Easy generators",
   "main": "./lib/yielding.js",
   "scripts": {
