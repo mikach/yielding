@@ -35,7 +35,7 @@ console.log( odd.toArray(10) ); // 1,3,5,7,9
 var get = Y.nwrap( require('request').get );
 
 Y(function* () {
-    var pages = ['http://google.com', 'http://yahoo.com', 'http://bind.com'];
+    var pages = ['http://google.com', 'http://yahoo.com', 'http://bing.com'];
     var content = yield pages.map(function(url) {
         return get(url);
     });
