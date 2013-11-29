@@ -2,7 +2,7 @@ var Y = require('..');
 var get = Y.nwrap( require('request').get );
 
 Y(function* () {
-    var pages = ['http://google.com', 'http://yahoo.com', 'http://bind.com'];
+    var pages = ['http://google.com', 'http://yahoo.com', 'http://bing.com'];
     var content = yield pages.map(function(url) {
         return get(url);
     });
