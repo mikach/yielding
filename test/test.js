@@ -100,15 +100,15 @@ describe('Y function', function () {
     });
 
     it('parallel execution', function(done) {
-        var get = Y.nwrap( require('request').get );
+        var read = Y.nwrap( fs.readFile );
         Y(function* () {
-            var pages = ['http://google.com', 'http://yahoo.com'];
-            var content = yield pages.map(function(url) {
-                return get(url);
+            var files = ['examples/Y.js', 'examples/Y-async.js'];
+            var content = yield files.map(function(file) {
+                return read(file, 'utf8');
             });
             content.forEach(function(c) { 
-                expect(c.body).to.be.a('string');
-                expect(c.body.length > 0).to.be.true;
+                expect(c).to.be.a('string');
+                expect(c.length > 0).to.be.true;
             })
             done();
         })();
@@ -119,7 +119,7 @@ describe('nodejs functions wrappers', function () {
     describe('nwrap()', function () {
         var filename = 'test/example.txt';
         var read = Y.nwrap(fs.readFile);
-        var readWithParams = Y.nwrap(fs.readFile, filename, 'utf-8');
+        var readWithParams = Y.nwrap(fs.readFile, filename, 'utf8');
 
         it('return promise', function () {
             expect( Y.isPromise(read()) ).to.be.true;
@@ -145,7 +145,7 @@ describe('nodejs functions wrappers', function () {
 describe('async functions w/o wrapping in Y async scope', function () {
     it('read a file', function (done) {
         Y(function *async() {
-            var content = yield fs.readFile('test/example.txt', 'utf-8', async.resume);
+            var content = yield fs.readFile('test/example.txt', 'utf8', async.resume);
             expect(content).to.be.equal('Hello');
             done();
         })();
@@ -165,12 +165,18 @@ describe('async functions w/o wrapping in Y async scope', function () {
     it('treat node error as exception', function (done) {
         Y(function *async() {
             try {
-                expect(yield fs.readFile('non_exists_file', 'utf-8', async.resume)).to.be.undefined;
+                expect(yield fs.readFile('non_exists_file', 'utf8', async.resume)).to.be.undefined;
             } catch (e) {
                 expect(e).to.be.instanceof(Error);
             } finally {
                 done();
             }
+        })();
+    });
+
+    it('resume in anonymous function', function() {
+        Y(function* () {
+            expect(arguments.callee.resume).to.be.a('function');
         })();
     });
 });
@@ -180,7 +186,7 @@ describe('errors handling', function () {
         var b = Y(function* () {
             var ex;
             try {
-                expect(yield Q.nfcall(fs.readFile, 'non_exists_file', 'utf-8')).to.be.undefined;
+                expect(yield Q.nfcall(fs.readFile, 'non_exists_file', 'utf8')).to.be.undefined;
             } catch (e) {
                 expect(e).to.be.instanceof(Error);
             } finally {
