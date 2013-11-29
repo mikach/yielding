@@ -80,6 +80,39 @@ describe('Y function', function () {
         expect( b.toArray(20).toString() ).to.be.equal( [0, 3, 6, 9, 12, 15, 18].toString() );
         expect( b.toArray(4)[1] ).to.be.equal(3);
     });
+
+    it('toArray() Async', function(done) {
+        var getContent = Y.nwrap(fs.readFile);
+        var getAll = Y(function* (files) {
+            for (var i = 0; i < files.length; i++) {
+                yield getContent(files[i], 'utf8');
+            }
+        });
+        Y(function* () {
+            var files = ['examples/Y.js', 'examples/Y-async.js', 'examples/ncall.js'];
+            var content = yield getAll.toArray(files);
+            content.forEach(function(c) { 
+                expect(c).to.be.a('string');
+                expect(c.length > 0).to.be.true;
+            });
+            done();
+        })();
+    });
+
+    it('parallel execution', function(done) {
+        var get = Y.nwrap( require('request').get );
+        Y(function* () {
+            var pages = ['http://google.com', 'http://yahoo.com'];
+            var content = yield pages.map(function(url) {
+                return get(url);
+            });
+            content.forEach(function(c) { 
+                expect(c.body).to.be.a('string');
+                expect(c.body.length > 0).to.be.true;
+            })
+            done();
+        })();
+    });
 });
 
 describe('nodejs functions wrappers', function () {
