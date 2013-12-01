@@ -76,7 +76,7 @@ Y.ncall(fs.readFile, './examples/Y.js', 'utf-8').then(function(content) {
     console.log(content.length);
 });
 ```
-###Error handling
+###Errors handling
 ```js
 Y(function* () {
     try { 
@@ -85,6 +85,12 @@ Y(function* () {
       console.log('ERROR: ' + e.message);
     }
     console.log('done');
+})();
+```
+###SUSPEND-style
+```js
+Y(function *async() {
+    var content = yield fs.readFile('test/example.txt', 'utf8', async.resume);
 })();
 ```
 [See more examples](https://github.com/mikach/yielding/tree/master/examples)
