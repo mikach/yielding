@@ -5,7 +5,7 @@ var fs = require('fs');
 var getContent = function(filename) {
     var d = q.defer();
     console.log('start read file ' + filename);
-    fs.readFile(filename, 'utf-8', function(err, res) {
+    fs.readFile(filename, 'utf8', function(err, res) {
         console.log('end read file ' + filename);
         if (!err) d.resolve(res);
         else d.reject(res);

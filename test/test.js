@@ -3,43 +3,43 @@ var q = require('q');
 var fs = require('fs');
 var expect = require('chai').expect;
 
-var readFile = function (name) {
+var readFile = function(name) {
     var d = q.defer();
-    fs.readFile(name, 'utf-8', function (err, res) {
+    fs.readFile(name, 'utf8', function(err, res) {
         d.resolve(res);
     });
     return d.promise;
 };
 
-describe('detect promises and generators', function () {
+describe('detect promises and generators', function() {
     var gen = function* () {
         yield 1;
     };
 
-    it('isPromise', function () {
+    it('isPromise', function() {
         expect( Y.isPromise(readFile('test')) ).to.be.true;
         expect( Y.isPromise(q.defer().promise) ).to.be.true;
         expect( Y.isPromise() ).to.be.false;
     });
 
-    it('isPromiseArray', function () {
+    it('isPromiseArray', function() {
         expect( Y.isPromiseArray([1,2,3]) ).to.be.false;
         expect( Y.isPromiseArray('test') ).to.be.false;
         expect( Y.isPromiseArray([1,2,q.defer().promise]) ).to.be.true;
     });
 
-    it('isGenerator', function () {
+    it('isGenerator', function() {
         expect( Y.isGenerator(gen) ).to.be.false;
         expect( Y.isGenerator(gen()) ).to.be.true;
     });
 
-    it('isGeneratorFn', function () {
+    it('isGeneratorFn', function() {
         expect( Y.isGeneratorFn(gen) ).to.be.true;
         expect( Y.isGeneratorFn(readFile) ).to.be.false;
     });
 });
 
-describe('Y function', function () {
+describe('Y function', function() {
     var gen = function* () {
         for (var i = 0; ++i < 10;) {
             yield i;
@@ -47,28 +47,28 @@ describe('Y function', function () {
         return i;
     };
 
-    it('should return function', function () {
+    it('should return function', function() {
         var b = Y(gen);
         expect(b).to.be.a('function');
     });
 
-    it('should return self if function is not a generator', function () {
-        var emptyFn = function () {};
+    it('should return self if function is not a generator', function() {
+        var emptyFn = function() {};
         expect( Y(emptyFn) ).to.be.equal( emptyFn );
     });
 
-    it('should return value', function () {
+    it('should return value', function() {
         expect( Y(gen)() ).to.be.equal( 10 );
     });
 
-    it('once()', function () {
+    it('once()', function() {
         var b = Y(gen);
         expect( b.once() ).to.be.equal( 1 );
         expect( b.once() ).to.be.equal( 2 );
         expect( b() ).to.be.equal( 10 );
     });
 
-    it('toArray() Sync', function () {
+    it('toArray() Sync', function() {
         var b = Y(function* (limit) {
             for (var i = 0; i < limit; i++) {
                 if (i % 3 === 0) yield i;
@@ -115,26 +115,26 @@ describe('Y function', function () {
     });
 });
 
-describe('nodejs functions wrappers', function () {
-    describe('nwrap()', function () {
+describe('nodejs functions wrappers', function() {
+    describe('nwrap()', function() {
         var filename = 'test/example.txt';
         var read = Y.nwrap(fs.readFile);
         var readWithParams = Y.nwrap(fs.readFile, filename, 'utf8');
 
-        it('return promise', function () {
+        it('return promise', function() {
             expect( Y.isPromise(read()) ).to.be.true;
             expect( Y.isPromise(readWithParams()) ).to.be.true;
         });
 
-        it('read a file', function (done) {
-            read(filename, 'utf-8').then(function (content) {
+        it('read a file', function(done) {
+            read(filename, 'utf8').then(function(content) {
                 expect(content).to.be.equal('Hello');
                 done();
             });
         });
 
-        it('read a file with params', function (done) {
-            readWithParams().then(function (content) {
+        it('read a file with params', function(done) {
+            readWithParams().then(function(content) {
                 expect(content).to.be.a('string');
                 done();
             });
@@ -142,8 +142,8 @@ describe('nodejs functions wrappers', function () {
     });
 });
 
-describe('async functions w/o wrapping in Y async scope', function () {
-    it('read a file', function (done) {
+describe('async functions w/o wrapping in Y async scope', function() {
+    it('read a file', function(done) {
         Y(function *async() {
             var content = yield fs.readFile('test/example.txt', 'utf8', async.resume);
             expect(content).to.be.equal('Hello');
@@ -151,10 +151,10 @@ describe('async functions w/o wrapping in Y async scope', function () {
         })();
     });
 
-    it('non-explicitly async function', function (done) {
+    it('non-explicitly async function', function(done) {
         Y(function *async() {
             // void operator is needed since setTimeout returns !== undefined and Y thinks it's ready-to-use value
-            var result = yield void setTimeout(function () {
+            var result = yield void setTimeout(function() {
                 async.resume(null, 123);
             }, 200);
             expect(result).to.be.equal(123);
@@ -162,7 +162,7 @@ describe('async functions w/o wrapping in Y async scope', function () {
         })();
     });
 
-    it('treat node error as exception', function (done) {
+    it('treat node error as exception', function(done) {
         Y(function *async() {
             try {
                 expect(yield fs.readFile('non_exists_file', 'utf8', async.resume)).to.be.undefined;
@@ -182,7 +182,7 @@ describe('async functions w/o wrapping in Y async scope', function () {
 });
 
 describe('errors handling', function () {
-    it('should handle errors in promises', function (done) {
+    it('should handle errors in promises', function(done) {
         var b = Y(function* () {
             var ex;
             try {
