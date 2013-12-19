@@ -1,6 +1,5 @@
-yielding
-========
-Easy generators.
+#yielding [![NPM version][npm-image]][npm-url]
+> Easy generators.
 
 Use Node version 0.11.x with `--harmony-generators` flag to work with es6 generators.
 ### Installation
@@ -94,3 +93,6 @@ Y(function *async() {
 })();
 ```
 [See more examples](https://github.com/mikach/yielding/tree/master/examples)
+
+[npm-url]: https://npmjs.org/package/yielding
+[npm-image]: https://badge.fury.io/js/yielding.png
