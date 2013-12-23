@@ -188,8 +188,9 @@ describe('errors handling', function () {
             try {
                 expect(yield Q.nfcall(fs.readFile, 'non_exists_file', 'utf8')).to.be.undefined;
             } catch (e) {
-                expect(e).to.be.instanceof(Error);
+                ex = e;
             } finally {
+                expect(e).to.be.instanceof(Error);
                 done();
             }
         })();
