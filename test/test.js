@@ -190,7 +190,7 @@ describe('errors handling', function () {
             } catch (e) {
                 ex = e;
             } finally {
-                expect(e).to.be.instanceof(Error);
+                expect(ex).to.be.instanceof(Error);
                 done();
             }
         })();
