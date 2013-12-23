@@ -1,4 +1,4 @@
-#yielding [![NPM version][npm-image]][npm-url]
+#yielding [![NPM version][npm-image]][npm-url] [![Build Status](https://travis-ci.org/mikach/yielding.png?branch=master)](https://travis-ci.org/mikach/yielding)
 > Easy generators.
 
 Use Node version 0.11.x with `--harmony-generators` flag to work with es6 generators.
