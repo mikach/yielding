@@ -96,3 +96,7 @@ Y(function *async() {
 
 [npm-url]: https://npmjs.org/package/yielding
 [npm-image]: https://badge.fury.io/js/yielding.png
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mikach/yielding/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
