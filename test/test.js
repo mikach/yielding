@@ -1,14 +1,14 @@
 var Y = require('..');
-var q = require('q');
+var Promise = require('es6-promise').Promise;
 var fs = require('fs');
 var expect = require('chai').expect;
 
 var readFile = function(name) {
-    var d = q.defer();
-    fs.readFile(name, 'utf8', function(err, res) {
-        d.resolve(res);
+    return new Promise(function(resolve, reject) {
+        fs.readFile(name, 'utf8', function(err, res) {
+            err ? reject(err) : resolve(res);
+        });
     });
-    return d.promise;
 };
 
 describe('detect promises and generators', function() {
@@ -18,14 +18,13 @@ describe('detect promises and generators', function() {
 
     it('isPromise', function() {
         expect( Y.isPromise(readFile('test')) ).to.be.true;
-        expect( Y.isPromise(q.defer().promise) ).to.be.true;
         expect( Y.isPromise() ).to.be.false;
     });
 
     it('isPromiseArray', function() {
         expect( Y.isPromiseArray([1,2,3]) ).to.be.false;
         expect( Y.isPromiseArray('test') ).to.be.false;
-        expect( Y.isPromiseArray([1,2,q.defer().promise]) ).to.be.true;
+        expect( Y.isPromiseArray([1,2,readFile('test')]) ).to.be.true;
     });
 
     it('isGenerator', function() {

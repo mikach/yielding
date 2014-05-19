@@ -4,7 +4,6 @@
   "description": "Easy generators",
   "main": "./lib/yielding.js",
   "scripts": {
-    "preinstall": "npm install mocha -g",
     "test": "mocha --harmony --reporter=spec test/test.js"
   },
   "repository": {
@@ -31,8 +30,11 @@
   },
   "homepage": "https://github.com/mikach/yielding",
   "devDependencies": {
-    "q": "~0.9.7",
-    "chai": "~1.8.1",
-    "request": "~2.27.0"
+    "chai": "^1.9.1",
+    "mocha": "^1.19.0",
+    "request": "^2.35.0"
+  },
+  "dependencies": {
+    "es6-promise": "^1.0.0"
   }
 }
